@@ -4,9 +4,14 @@
 local TestReporter = require "/TestBoots/TestReporter"
 local testReporter = TestReporter()
 
-local TextTestReport = require "/TestBoots/reports/TextTestReport"
-testReporter:addReportType("TEXT", TextTestReport())
-testReporter:setReportType("TEXT")
+local reports = require "/TestBoots/reports/reports"
+for name, reportSrc in pairs(reports) do
+  local ReportClass = require("/TestBoots/reports/" .. reportSrc)
+  local reportObj = ReportClass()
+  testReporter:addReportType(name, reportObj)
+end
+
+testReporter:setReportType("DEFAULT")
 
 local compare = require "/TestBoots/internal/compare"
 local globalizeAllFunctions = require "/TestBoots/internal/globalizeAllFunctions"

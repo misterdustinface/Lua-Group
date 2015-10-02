@@ -41,6 +41,10 @@ local function setDispatch(xGroup, xType)
   xGroup.dispatch = DISPATCHERS[xType] or iterativeDispatch
 end
 
+local function addDispatch(xGroup, xType, xDispatchFunc)
+  DISPATCHERS[xType] = xDispatchFunc
+end
+
 local function constructor(xElements)
   local group = {
     elements = xElements,

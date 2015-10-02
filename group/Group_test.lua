@@ -4,6 +4,9 @@
 require "/TestBoots/testboots"
 local group = require "/group/Group"
 
+setReportType("TEXT Failures Only")
+
+local testsupport = {}
 local newSpyElement
 
 function test_groupConstructor_returnsTable()
@@ -17,7 +20,7 @@ function test_groupConstruction_expectGroupHasElementsAddedByConstruction()
 end
 
 function test_groupMethodCall_withOneElement_expectElementOfGroupHaveMethodCall()
-  local spyElement = newSpyElement()
+  local spyElement = testsupport.newSpyElement()
   local testgroup = group { spyElement }
   
   assertEQ(false, spyElement.wasCalled, 
@@ -28,7 +31,7 @@ function test_groupMethodCall_withOneElement_expectElementOfGroupHaveMethodCall(
 end
 
 function test_groupMethodCall_withManyElements_expectElementsOfGroupHaveMethodCall()
-  local spyA, spyB, spyC = newSpyElement(), newSpyElement(), newSpyElement()
+  local spyA, spyB, spyC = testsupport.newSpyElement(), testsupport.newSpyElement(), testsupport.newSpyElement()
   local testgroup = group { spyA, spyB, spyC }
   
   assertEQ(false, spyA.wasCalled, "The method of spyA has not yet been called")
@@ -42,7 +45,7 @@ function test_groupMethodCall_withManyElements_expectElementsOfGroupHaveMethodCa
 end
 
 function test_groupMethodCall_withExclusiveMethod_expectElementsOfGroupWithMethodReceiveMethodCall()
-  local spyA, spyB, spyC = newSpyElement(), newSpyElement(), newSpyElement()
+  local spyA, spyB, spyC = testsupport.newSpyElement(), testsupport.newSpyElement(), testsupport.newSpyElement()
   local testgroup = group { spyA, spyB, spyC }
   
   spyB.exclusiveMethod = function(xSelf, ...)
@@ -60,7 +63,7 @@ function test_groupMethodCall_withExclusiveMethod_expectElementsOfGroupWithMetho
 end
 
 function test_groupMethodCall_withArgument_expectElementsOfGroupSeeArgumentWithinCall()
-  local spyA, spyB, spyC = newSpyElement(), newSpyElement(), newSpyElement()
+  local spyA, spyB, spyC = testsupport.newSpyElement(), testsupport.newSpyElement(), testsupport.newSpyElement()
   local testgroup = group { spyA, spyB, spyC }
   local argument = 'X'
   
@@ -71,7 +74,7 @@ function test_groupMethodCall_withArgument_expectElementsOfGroupSeeArgumentWithi
 end
 
 function test_groupMethodCall_withExclusiveMethodWithArgument_expectElementsOfGroupSeeArgumentWithinCall()
-  local spyA, spyB, spyC = newSpyElement(), newSpyElement(), newSpyElement()
+  local spyA, spyB, spyC = testsupport.newSpyElement(), testsupport.newSpyElement(), testsupport.newSpyElement()
   local testgroup = group { spyA, spyB, spyC }
   local argument = 'X'
   
@@ -85,7 +88,11 @@ function test_groupMethodCall_withExclusiveMethodWithArgument_expectElementsOfGr
   expectEQ(nil, spyC.argument, "spyC did not see the argument")
 end
 
-function newSpyElement()
+----------------------------
+-- Test Support Functions --
+----------------------------
+
+function testsupport.newSpyElement()
   local spyElement = {
     wasCalled = false,
     argument = nil,
