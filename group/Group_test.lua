@@ -7,7 +7,6 @@ local group = require "/group/Group"
 setReportType("TEXT Failures Only")
 
 local testsupport = {}
-local newSpyElement
 
 function test_groupConstructor_returnsTable()
   local testgroup = group()
