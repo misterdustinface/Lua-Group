@@ -39,8 +39,8 @@ function test_groupMethodCall_withManyElements_expectElementsOfGroupHaveMethodCa
   
   testgroup:someMethod()
   expectEQ(true, spyA.wasCalled, "The method of spyA has been called")
-  expectEQ(true, spyB.wasCalled, "The method of spyA has been called")
-  expectEQ(true, spyC.wasCalled, "The method of spyA has been called")
+  expectEQ(true, spyB.wasCalled, "The method of spyB has been called")
+  expectEQ(true, spyC.wasCalled, "The method of spyC has been called")
 end
 
 function test_groupMethodCall_withExclusiveMethod_expectElementsOfGroupWithMethodReceiveMethodCall()
@@ -57,8 +57,8 @@ function test_groupMethodCall_withExclusiveMethod_expectElementsOfGroupWithMetho
   
   testgroup:exclusiveMethod()
   expectEQ(false, spyA.wasCalled, "The method of spyA has NOT been called")
-  expectEQ(true,  spyB.wasCalled, "The method of spyA has been called")
-  expectEQ(false, spyC.wasCalled, "The method of spyA has NOT been called")
+  expectEQ(true,  spyB.wasCalled, "The method of spyB has been called")
+  expectEQ(false, spyC.wasCalled, "The method of spyC has NOT been called")
 end
 
 function test_groupMethodCall_withArgument_expectElementsOfGroupSeeArgumentWithinCall()
